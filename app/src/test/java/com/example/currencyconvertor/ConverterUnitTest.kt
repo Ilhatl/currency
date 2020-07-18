@@ -1,14 +1,21 @@
 package com.example.currencyconvertor
 
+import com.example.currencyconvertor.business_layout.Currency
 import org.junit.Test
 
 import org.junit.Assert.*
 
 
 class ConverterUnitTest {
-    var currency:Currency
+    var currency: Currency
     init {
-        currency = Currency("840", "USD", 1f, "Доллар США",70.0f)
+        currency = Currency(
+            "840",
+            "USD",
+            1f,
+            "Доллар США",
+            70.0f
+        )
     }
 
 
@@ -31,7 +38,13 @@ class ConverterUnitTest {
 
     @Test
     fun curr_to_curr() {
-        val target = Currency("978", "EUR", 1f, "Евро",80.0f)
+        val target = Currency(
+            "978",
+            "EUR",
+            1f,
+            "Евро",
+            80.0f
+        )
         assertEquals(87.5f, currency.currToCurr(100f,target),0.005f)
         assertNotEquals(0f, currency.currToCurr(100f,target))
         val tmp = Currency()

@@ -1,9 +1,10 @@
-package com.example.currencyconvertor
+package com.example.currencyconvertor.framework_layout.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+
 @Database(entities = arrayOf(CurrencyEntity::class), version = 1, exportSchema = false)
 abstract class AppDb: RoomDatabase() {
     abstract fun currencyDao(): CurrencyDao
@@ -13,7 +14,8 @@ abstract class AppDb: RoomDatabase() {
         private var INSTANCE: AppDb? = null
 
         fun getDatabase(context: Context): AppDb {
-            val tempInstance = INSTANCE
+            val tempInstance =
+                INSTANCE
             if (tempInstance != null) {
                 return tempInstance
             }

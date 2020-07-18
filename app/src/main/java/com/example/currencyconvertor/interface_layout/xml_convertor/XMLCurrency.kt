@@ -1,4 +1,4 @@
-package com.example.currencyconvertor
+package com.example.currencyconvertor.interface_layout.xml_convertor
 
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList

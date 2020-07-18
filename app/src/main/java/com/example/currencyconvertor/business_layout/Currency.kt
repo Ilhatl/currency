@@ -1,4 +1,4 @@
-package com.example.currencyconvertor
+package com.example.currencyconvertor.business_layout
 
 open class Currency(){
 
@@ -38,7 +38,7 @@ open class Currency(){
         return total
     }
 
-    fun currToCurr(qnt:Float, target:Currency):Float{
+    fun currToCurr(qnt:Float, target: Currency):Float{
         var total = 0f
         if(this.Nominal>0 || this.Value>0){
             val rub = this.Value/this.Nominal

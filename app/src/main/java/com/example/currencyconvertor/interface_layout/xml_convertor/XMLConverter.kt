@@ -1,8 +1,10 @@
-package com.example.currencyconvertor
+package com.example.currencyconvertor.interface_layout.xml_convertor
 
+import com.example.currencyconvertor.business_layout.Currency
 import org.simpleframework.xml.core.Persister
 
-class XMLConverter:IConverterXML {
+class XMLConverter:
+    IConverterXML {
     override fun convertXML(xml:String): List<Currency>? {
         val xmlData = convertToListCurrency(xml)
         val list = ArrayList<Currency>()
@@ -22,7 +24,7 @@ class XMLConverter:IConverterXML {
         return serializer.read(XMLCurrency::class.java, xml)
     }
 
-    private fun elemConvert(xml:Valute):Currency{
+    private fun elemConvert(xml: Valute): Currency {
         val tmp = xml.Value?.replace(",",".")
         val f = tmp?.toFloat()
 
