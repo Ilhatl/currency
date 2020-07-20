@@ -20,7 +20,7 @@ class RepositoryImpl(db: AppDb): IRepository {
     @Throws(RuntimeException::class, TimeoutException::class, IOException::class)
     override suspend fun getCurrencies(req:IHttpRequest): List<Currency> {
         try{
-            val apiData = withTimeoutOrNull(2000L) {
+            withTimeoutOrNull(2000L) {
                 val data = req.httpGetRequest(URL)
                 val list = XMLConverter().convertXML(data)
                 list?.let { saveCache(it) }
