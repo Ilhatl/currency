@@ -25,7 +25,7 @@ import java.io.IOException
 
 
 @RunWith(AndroidJUnit4::class)
-class SQLTest {
+class RequestTest {
     private lateinit var repository: RepositoryImpl
     private lateinit var db: AppDb
 
@@ -34,6 +34,7 @@ class SQLTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(context, AppDb::class.java).build()
         repository = RepositoryImpl(db)
+        repository.saveCache(TestData.getCachedTemplateCurrencies())
     }
 
     @After
@@ -43,16 +44,44 @@ class SQLTest {
     }
 
     @Test
-    @Throws(Exception::class)
-    fun writeUserAndReadInList() {
-        val tmpData = TestData.getTemplateCurrencies()
-        repository.saveCache(tmpData)
-        val cache = repository.getFromDb()
-        assertEquals(3, cache.size)
-        assertEquals("USD", cache[0].CharCode)
-        assertEquals(66.1835f, cache[2].Value)
+    fun httpRequestTestSuccess() {
+        val req = FakeHttpRequest(FakeHttpRequest.SUCCESS)
+        runBlocking {
+            val job = async{
+                repository.getCurrencies(req)
+            }
+            val data = job.await()
+            assertEquals(3, data.size)
+            assertEquals("USD", data[0].CharCode)
+            assertEquals(66.1835f, data[2].Value)
+        }
     }
 
+    @Test
+    fun httpRequestTestTimeout() {
+        val req = FakeHttpRequest(FakeHttpRequest.TIMEOUT)
+        runBlocking {
+            val job = async{
+                repository.getCurrencies(req)
+            }
+            val data = job.await()
+            assertEquals(3, data.size)
+            assertEquals(67.1835f, data[2].Value)
+        }
+    }
+
+    @Test
+    fun httpRequestTestEmptyResponse() {
+        val req = FakeHttpRequest(FakeHttpRequest.EMPTY_RESPONSE)
+        runBlocking {
+            val job = async{
+                repository.getCurrencies(req)
+            }
+            val data = job.await()
+            assertEquals(3, data.size)
+            assertEquals(81.8392f, data[1].Value)
+        }
+    }
 
 
     @Test

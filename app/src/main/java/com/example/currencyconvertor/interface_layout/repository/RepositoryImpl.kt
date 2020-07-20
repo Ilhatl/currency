@@ -4,13 +4,33 @@ import android.content.Context
 import com.example.currencyconvertor.business_layout.Currency
 import com.example.currencyconvertor.framework_layout.db.AppDb
 import com.example.currencyconvertor.framework_layout.db.CurrencyEntity
+import com.example.currencyconvertor.framework_layout.network.HttpApiRequest
+import com.example.currencyconvertor.framework_layout.network.IHttpRequest
 import com.example.currencyconvertor.interface_layout.repository.IRepository
+import com.example.currencyconvertor.interface_layout.xml_convertor.XMLConverter
+import kotlinx.coroutines.*
+import java.io.IOException
+import java.lang.Exception
+import java.util.concurrent.TimeoutException
 
 class RepositoryImpl(db: AppDb): IRepository {
     private var db: AppDb = db
+    private val URL = "http://www.cbr.ru/scripts/XML_daily.asp"
 
-    override fun getCurrencies(): List<Currency> {
-        TODO("Not yet implemented")
+    @Throws(RuntimeException::class, TimeoutException::class, IOException::class)
+    override suspend fun getCurrencies(req:IHttpRequest): List<Currency> {
+        try{
+            val apiData = withTimeoutOrNull(2000L) {
+                val data = req.httpGetRequest(URL)
+                val list = XMLConverter().convertXML(data)
+                list?.let { saveCache(it) }
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
+        return getFromDb()
+
     }
 
     override fun saveCache(list: List<Currency>) {
@@ -24,7 +44,7 @@ class RepositoryImpl(db: AppDb): IRepository {
         return convertToCurrency(dao.getAll())
     }
 
-    fun convertToCurrency(list:List<CurrencyEntity>):List<Currency>{
+    private fun convertToCurrency(list:List<CurrencyEntity>):List<Currency>{
         var result = ArrayList<Currency>()
         list.forEach{
             result.add(it.currency)
@@ -32,7 +52,7 @@ class RepositoryImpl(db: AppDb): IRepository {
         return result
     }
 
-    fun convertFromCurrency(list:List<Currency>):ArrayList<CurrencyEntity>{
+    private fun convertFromCurrency(list:List<Currency>):ArrayList<CurrencyEntity>{
         var result = ArrayList<CurrencyEntity>()
         list.forEach{
             val tmp = CurrencyEntity(it)

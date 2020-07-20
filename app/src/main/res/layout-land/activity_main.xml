@@ -8,14 +8,11 @@
 
     <Spinner
         android:id="@+id/spFrom"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="40dp"
         android:spinnerMode="dialog"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvResult" />
 
@@ -23,23 +20,23 @@
         android:id="@+id/etQnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="numberDecimal"
         android:paddingStart="5dp"
         android:text="1"
-        app:layout_constraintStart_toEndOf="@+id/lblQnt"
-        app:layout_constraintTop_toBottomOf="@+id/spFrom" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spFrom"
+        app:layout_constraintTop_toTopOf="@+id/spFrom" />
 
     <Spinner
         android:id="@+id/spTo"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
         android:spinnerMode="dialog"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etQnt" />
 
@@ -47,20 +44,16 @@
         android:id="@+id/btnConvert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
         android:text="Конвертировать"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spTo" />
+        app:layout_constraintStart_toStartOf="@+id/etQnt"
+        app:layout_constraintTop_toBottomOf="@+id/lblToCurrency" />
 
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:paddingLeft="5dp"
         android:text="1"
@@ -91,10 +84,10 @@
         android:id="@+id/lblQnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="4dp"
         android:text="Количество"
-        app:layout_constraintStart_toStartOf="@+id/spFrom"
-        app:layout_constraintTop_toTopOf="@+id/etQnt" />
+        app:layout_constraintBottom_toTopOf="@+id/etQnt"
+        app:layout_constraintStart_toStartOf="@+id/etQnt" />
 
     <TextView
         android:id="@+id/lblToCurrency"

@@ -24,7 +24,7 @@ abstract class AppDb: RoomDatabase() {
                     context.applicationContext,
                     AppDb::class.java,
                     "CacheDb"
-                ).build()
+                ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 return instance
             }

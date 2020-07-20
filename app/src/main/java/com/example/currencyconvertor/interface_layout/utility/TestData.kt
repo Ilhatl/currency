@@ -1,8 +1,9 @@
 package com.example.currencyconvertor.interface_layout.utility
 
 import com.example.currencyconvertor.business_layout.Currency
+import kotlinx.coroutines.delay
 
-class TemplateData {
+class TestData {
     companion object{
         fun getTemplateXML():String{
             return  "<ValCurs Date=\"16.07.2020\" name=\"Foreign Currency Market\">\n" +
@@ -36,6 +37,29 @@ class TemplateData {
             list.add(Currency("978","EUR",1f,"Евро",80.8392f))
             list.add(Currency("392","JPY",1f,"Японских иен",66.1835f))
             return list
+        }
+
+        fun getCachedTemplateCurrencies():ArrayList<Currency>{
+            val list = ArrayList<Currency>()
+            list.add(Currency("840","USD",1f,"Доллар США",71.7998f))
+            list.add(Currency("978","EUR",1f,"Евро",81.8392f))
+            list.add(Currency("392","JPY",1f,"Японских иен",67.1835f))
+            return list
+        }
+
+        suspend fun success_get_request():String{
+            delay(500)
+            return getTemplateXML()
+        }
+
+        suspend fun empty_response():String{
+            delay(500)
+            return ""
+        }
+
+        suspend fun timeout_request():String{
+            delay(2500)
+            return ""
         }
     }
 }

@@ -3,9 +3,9 @@ package com.example.currencyconvertor.interface_layout.xml_convertor
 import com.example.currencyconvertor.business_layout.Currency
 import org.simpleframework.xml.core.Persister
 
-class XMLConverter:
-    IConverterXML {
+class XMLConverter:IConverterXML {
     override fun convertXML(xml:String): List<Currency>? {
+        if(xml.isEmpty()) return null
         val xmlData = convertToListCurrency(xml)
         val list = ArrayList<Currency>()
 
@@ -14,8 +14,6 @@ class XMLConverter:
                 list.add(elemConvert(item))
             }
         }
-
-
         return list
     }
 

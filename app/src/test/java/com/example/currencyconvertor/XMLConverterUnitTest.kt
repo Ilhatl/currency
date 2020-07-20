@@ -1,6 +1,6 @@
 package com.example.currencyconvertor
 
-import com.example.currencyconvertor.interface_layout.utility.TemplateData
+import com.example.currencyconvertor.interface_layout.utility.TestData
 import com.example.currencyconvertor.interface_layout.xml_convertor.XMLConverter
 import org.junit.Test
 
@@ -10,7 +10,7 @@ import org.junit.Assert.*
 class XMLConverterUnitTest {
     var xml:String
     init {
-        xml = TemplateData.getTemplateXML()
+        xml = TestData.getTemplateXML()
     }
 
 
